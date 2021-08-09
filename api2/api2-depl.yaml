@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api2-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api2
+  template:
+    metadata:
+      labels:
+        app: api2
+    spec:
+      containers:
+        - name: api2
+          image: azeem0322/api2:latest
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api2-srv
+spec:
+  selector:
+    app: api2
+  ports:
+    - name: api2
+      protocol: TCP
+      port: 3004
+      targetPort: 3004
